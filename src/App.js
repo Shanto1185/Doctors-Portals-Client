@@ -5,6 +5,7 @@ import Appoinment from './Pages/Appoinment/Appoinment/Appoinment';
 import Login from './Login/Login/Login';
 import Register from './Login/Register/Register';
 import AuthProvider from './Contexts/AuthProvider/AuthProvider';
+import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route path="/register">
               <Register></Register>
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard></Dashboard>
             </Route>
           </Switch>
         </Router>

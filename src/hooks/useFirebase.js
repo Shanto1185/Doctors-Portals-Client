@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
 import initializeAuthentication from './../Login/Firebase/firebase.init';
 import { useEffect, useState } from 'react';
 
@@ -25,13 +25,22 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     }
 
-    const handleCreteNewUser = (email, password) => {
+    const handleCreteNewUser = (email, password, name) => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
-                const user = result.user;
-                setUser(user);
+                // const user = result.user;
+                // setUser(user);
                 setError('')
+                const newUser = { email, displayName: name };
+                setUser(newUser);
+                //send name to firebase after creation
+                updateProfile(auth.currentUser, {
+                    displayName: name
+                }).then(() => {
+                }).catch((error) => {
+
+                });
             })
             .catch(error => {
                 setError(error.message);

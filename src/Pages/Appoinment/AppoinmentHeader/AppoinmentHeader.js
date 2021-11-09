@@ -4,12 +4,12 @@ import chari from '../../../images/chair.png'
 import Calender from '../../Shared/Navigation/Calender/Calender';
 import { Container } from '@mui/material';
 
-const AppoinmentHeader = ({ date, setdate }) => {
+const AppoinmentHeader = ({ date, setDate }) => {
     return (
         <Container xs={{ mt: 5 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
-                    <Calender date={date} setdate={setdate}></Calender>
+                    <Calender date={date} setDate={setDate}></Calender>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img src={chari} alt=""

@@ -30,7 +30,7 @@ const Register = () => {
         if (logninData?.password !== logninData?.password2) {
             alert('your password did not match')
         }
-        handleCreteNewUser(logninData?.email, logninData?.password)
+        handleCreteNewUser(logninData.email, logninData.password, logninData.name)
         console.log(logninData.email, logninData.password)
         e.preventDefault();
         console.log('clicked')
@@ -43,7 +43,16 @@ const Register = () => {
                         Register
                         {!isLoading && <form onSubmit={handleSubimt}>
                             <TextField
-                                onChange={handleLogin}
+                                onBlur={handleLogin}
+                                sx={{ width: '75%', m: 2 }}
+                                id="standard-basic"
+                                label="Your Name"
+                                type="name"
+                                variant="standard"
+                                name="name"
+                            />
+                            <TextField
+                                onBlur={handleLogin}
                                 sx={{ width: '75%', m: 2 }}
                                 id="standard-basic"
                                 label="Your Email"
@@ -52,7 +61,7 @@ const Register = () => {
                                 name="email"
                             />
                             <TextField
-                                onChange={handleLogin}
+                                onBlur={handleLogin}
                                 sx={{ width: '75%', m: 2 }}
                                 id="standard-basic"
                                 label="Password"
@@ -61,7 +70,7 @@ const Register = () => {
                                 name="password"
                             />
                             <TextField
-                                onChange={handleLogin}
+                                onBlur={handleLogin}
                                 sx={{ width: '75%', m: 2 }}
                                 id="standard-basic"
                                 label="Confirm Your Password"

@@ -28,6 +28,7 @@ const Login = () => {
     }
 
     const handleSubimt = e => {
+
         handleOldLogin(logninData?.email, logninData?.password)
 
         e.preventDefault();
@@ -42,7 +43,7 @@ const Login = () => {
                         Login
                         {!isLoading && <form onSubmit={handleSubimt}>
                             <TextField
-                                onChange={handleLogin}
+                                onBlur={handleLogin}
                                 sx={{ width: '75%', m: 2 }}
                                 id="standard-basic"
                                 label="Your Email"
@@ -50,7 +51,7 @@ const Login = () => {
                                 name="email"
                             />
                             <TextField
-                                onChange={handleLogin}
+                                onBlur={handleLogin}
                                 sx={{ width: '75%', m: 2 }}
                                 id="standard-basic"
                                 label="Password"
