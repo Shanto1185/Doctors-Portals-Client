@@ -5,13 +5,15 @@ import login from '../../images/login.png'
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
 
-    const { loginWithGoogl } = useAuth();
+    const { user, error, loginWithGoogl, handleOldLogin, isLoading } = useAuth();
 
     const [logninData, setLoginData] = useState({})
 
@@ -26,8 +28,10 @@ const Login = () => {
     }
 
     const handleSubimt = e => {
+        handleOldLogin(logninData?.email, logninData?.password)
 
         e.preventDefault();
+        console.log(logninData.email, logninData.password)
         console.log('clicked')
     }
     return (
@@ -36,13 +40,12 @@ const Login = () => {
                 <Grid sx={{ mt: 8 }} item xs={12} md={6}>
                     <Typography variant="h4" gutterBottom component="div">
                         Login
-                        <form onSubmit={handleSubimt}>
+                        {!isLoading && <form onSubmit={handleSubimt}>
                             <TextField
                                 onChange={handleLogin}
                                 sx={{ width: '75%', m: 2 }}
                                 id="standard-basic"
                                 label="Your Email"
-                                type="password"
                                 variant="standard"
                                 name="email"
                             />
@@ -81,7 +84,11 @@ const Login = () => {
                                     New to Doctors Portal? Please Register.
                                 </Button>
                             </NavLink>
-                        </form>
+                        </form>}
+                        {isLoading && <CircularProgress />}
+                        {user?.email && <Alert severity="success">
+                            Login Successful</Alert>}
+                        {error && <Alert severity="error">{error}</Alert>}
                     </Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>

@@ -5,6 +5,8 @@ import login from '../../images/login.png'
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -12,7 +14,7 @@ import useAuth from '../../hooks/useAuth';
 const Register = () => {
 
     const [logninData, setLoginData] = useState({})
-    const { loginWithGoogl } = useAuth();
+    const { user, error, loginWithGoogl, handleCreteNewUser, isLoading } = useAuth();
 
     const handleLogin = e => {
         const field = e.target.name;
@@ -28,7 +30,8 @@ const Register = () => {
         if (logninData?.password !== logninData?.password2) {
             alert('your password did not match')
         }
-
+        handleCreteNewUser(logninData?.email, logninData?.password)
+        console.log(logninData.email, logninData.password)
         e.preventDefault();
         console.log('clicked')
     }
@@ -38,7 +41,7 @@ const Register = () => {
                 <Grid sx={{ mt: 8 }} item xs={12} md={6}>
                     <Typography variant="h4" gutterBottom component="div">
                         Register
-                        <form onSubmit={handleSubimt}>
+                        {!isLoading && <form onSubmit={handleSubimt}>
                             <TextField
                                 onChange={handleLogin}
                                 sx={{ width: '75%', m: 2 }}
@@ -92,14 +95,17 @@ const Register = () => {
                                     Already have an account? Please Login.
                                 </Button>
                             </NavLink>
-                        </form>
+                        </form>}
+                        {isLoading && <CircularProgress />}
+                        {user?.email && <Alert severity="success">User Registration Successful</Alert>}
+                        {error && <Alert severity="error">{error}</Alert>}
                     </Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img style={{ width: '100%' }} src={login} alt="" />
                 </Grid>
             </Grid>
-        </Container>
+        </Container >
     );
 };
 
